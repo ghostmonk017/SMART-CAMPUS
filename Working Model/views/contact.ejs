@@ -1,0 +1,156 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - SmartCampus</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f8f9fc;
+            margin: 0;
+            padding: 0;
+        }
+        .sidebar {
+            width: 250px;
+            height: 100vh;
+            background-color: #fff;
+            position: fixed;
+            top: 0;
+            left: 0;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            padding-top: 20px;
+        }
+        .sidebar h2 {
+            text-align: center;
+            color: #4e73df;
+            margin-bottom: 30px;
+        }
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+        .sidebar ul li {
+            padding: 15px 20px;
+            color: #858796;
+            cursor: pointer;
+        }
+        .sidebar ul li:hover {
+            background-color: #f8f9fc;
+            color: #4e73df;
+        }
+        .sidebar ul li i {
+            margin-right: 10px;
+        }
+        .content {
+            margin-left: 250px;
+            padding: 20px;
+        }
+        .content h1 {
+            font-size: 24px;
+            color: #4e73df;
+        }
+        .breadcrumb {
+            font-size: 14px;
+            color: #858796;
+            margin-bottom: 20px;
+        }
+        .breadcrumb a {
+            color: #4e73df;
+            text-decoration: none;
+        }
+        .card {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .card h3 {
+            font-size: 18px;
+            color: #4e73df;
+            margin-bottom: 10px;
+        }
+        .card p {
+            font-size: 14px;
+            color: #858796;
+        }
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+        }
+        .contact-form input, .contact-form textarea {
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #d1d3e2;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        .contact-form button {
+            padding: 10px;
+            background-color: #4e73df;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .contact-form button:hover {
+            background-color: #2e59d9;
+        }
+        .footer {
+            text-align: center;
+            padding: 20px;
+            font-size: 14px;
+            color: #858796;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <h2>SmartCampus</h2>
+        <ul>
+            <li><i class="fas fa-tachometer-alt"></i>    <a href="/dashboard">Dashboard</a></li>
+            <li><i class="fas fa-cogs"></i> </i><a href="/component">Features</a></li>
+            <li><i class="fas fa-user"></i> <a href="/profile">Profile</a></li>
+            <li><i class="fas fa-envelope"></i> <a href="/contact">Contact</a></li>
+
+        </ul>
+    </div>
+    <div class="content">
+        <h1>Contact</h1>
+        <div class="breadcrumb">
+            <a href="#">Home</a> / <a href="#">Pages</a> / Contact
+        </div>
+        <div class="card">
+            <h3><i class="fas fa-map-marker-alt"></i> Address</h3>
+            <p>Dr.DY Patil Institute of Technology<br>Pimpri,Pune-411018</p>
+        </div>
+        <div class="card">
+            <h3><i class="fas fa-phone"></i> Call Us</h3>
+            <p>+91 123456789</p>
+        </div>
+        <div class="card">
+            <h3><i class="fas fa-envelope"></i> Email Us</h3>
+            <p>help@dypsvp.edu.in</p>
+        </div>
+        <div class="card">
+            <h3><i class="fas fa-clock"></i> Open Hours</h3>
+            <p>Monday - Friday<br>06:00AM - 11:00PM</p>
+        </div>
+        <div class="card">
+            <form class="contact-form">
+                <input type="text" placeholder="Your Name">
+                <input type="email" placeholder="Your Email">
+                <input type="text" placeholder="Subject">
+                <textarea placeholder="Message" rows="5"></textarea>
+                <button type="submit">Send Message</button>
+            </form>
+        </div>
+    </div>
+    <div class="footer">
+        © Copyright Team NexTech All Rights Reserved
+    </div>
+</body>
+</html>

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Class Schedule</title>
+    <link rel="stylesheet" href="schedule.css">
+    <style>
+        body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
+    background: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+input:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+.submit-button {
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.submit-button:hover {
+    background-color: #0056b3;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+th {
+    background-color: #007bff;
+    color: white;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.delete-button {
+    padding: 5px;
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.delete-button:hover {
+    background-color: #c82333;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+    }
+
+    form {
+        flex-direction: column;
+    }
+
+    .form-group {
+        flex-direction: column;
+    }
+
+    input {
+        width: 100%;
+    }
+
+    .submit-button, .delete-button {
+        width: 100%;
+    }
+
+    table {
+        font-size: 14px;
+    }
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Student Class Schedule</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Day</th>
+                    <th>Time</th>
+                    <th>Subject</th>
+                    <th>Teacher</th>
+                </tr>
+            </thead>
+            <tbody id="studentScheduleTableBody">
+                <!-- Schedule will be populated here -->
+            </tbody>
+        </table>
+    </div>
+    <script src="student_schedule.js">
+        // Function to populate the class schedule for students
+function populateStudentSchedule() {
+    const schedule = JSON.parse(localStorage.getItem('classSchedule')) || [];
+    const tbody = document.getElementById('studentScheduleTableBody');
+
+    tbody.innerHTML = ''; // Clear previous data
+
+    if (schedule.length === 0) {
+        const row = `<tr><td colspan="4">No classes scheduled.</td></tr>`;
+        tbody.innerHTML += row;
+        return;
+    }
+
+    schedule.forEach(record => {
+        const row = `<tr>
+            <td>${record.day}</td>
+            <td>${record.time}</td>
+            <td>${record.subject}</td>
+            <td>${record.teacher}</td>
+        </tr>`;
+        tbody.innerHTML += row;
+    });
+}
+
+// Load schedule on page load
+document.addEventListener('DOMContentLoaded', populateStudentSchedule);
+
+    </script>
+</body>
+</html>

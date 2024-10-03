@@ -1,0 +1,194 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Student Events</title>
+    <link rel="stylesheet" href="schedule.css" />
+    <style>
+      body {
+        font-family: "Arial", sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 20px;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: auto;
+        padding: 20px;
+        background: white;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+      }
+
+      h1 {
+        text-align: center;
+        color: #333;
+        margin-bottom: 20px;
+      }
+
+      form {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        margin-bottom: 20px;
+      }
+
+      .form-group {
+        display: flex;
+        flex-direction: column;
+      }
+
+      label {
+        margin-bottom: 5px;
+        font-weight: bold;
+      }
+
+      input,
+      textarea {
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        resize: vertical;
+      }
+
+      input:focus,
+      textarea:focus {
+        border-color: #007bff; /* Green color for focus */
+        outline: none;
+      }
+
+      .submit-button {
+        padding: 10px;
+        background-color: #007bff; /* Green background */
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+
+      .submit-button:hover {
+        background-color: #007bff; /* Darker green on hover */
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+      }
+
+      th,
+      td {
+        padding: 10px;
+        border: 1px solid #ddd;
+        text-align: left;
+      }
+
+      th {
+        background-color: #007bff; /* Green header */
+        color: white;
+      }
+
+      tr:nth-child(even) {
+        background-color: #f2f2f2;
+      }
+
+      .delete-button {
+        padding: 5px;
+        background-color: #dc3545; /* Red for delete */
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+
+      .delete-button:hover {
+        background-color: #c82333; /* Darker red on hover */
+      }
+
+      /* Responsive Styles */
+      @media (max-width: 768px) {
+        .container {
+          padding: 15px;
+        }
+
+        form {
+          flex-direction: column;
+        }
+
+        .form-group {
+          flex-direction: column;
+        }
+
+        input,
+        textarea {
+          width: 100%;
+        }
+
+        .submit-button,
+        .delete-button {
+          width: 100%;
+        }
+
+        table {
+          font-size: 14px;
+        }
+      }
+
+      @media (min-width: 769px) {
+        .container {
+          padding: 30px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Upcoming Events</h1>
+      <table>
+        <thead>
+          <tr>
+            <th>Event Name</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody id="studentEventsTableBody">
+          <!-- Events will be populated here -->
+        </tbody>
+      </table>
+    </div>
+    <script>
+      // Function to populate the events for students
+      function populateStudentEvents() {
+        const events = JSON.parse(localStorage.getItem("events")) || [];
+        const tbody = document.getElementById("studentEventsTableBody");
+
+        tbody.innerHTML = ""; // Clear previous data
+
+        if (events.length === 0) {
+          const row = `<tr><td colspan="4">No events scheduled.</td></tr>`;
+          tbody.innerHTML += row;
+          return;
+        }
+
+        events.forEach((event) => {
+          const row = `<tr>
+            <td>${event.name}</td>
+            <td>${event.date}</td>
+            <td>${event.time}</td>
+            <td>${event.description}</td>
+        </tr>`;
+          tbody.innerHTML += row;
+        });
+      }
+
+      // Load events on page load
+      document.addEventListener("DOMContentLoaded", populateStudentEvents);
+    </script>
+  </body>
+</html>

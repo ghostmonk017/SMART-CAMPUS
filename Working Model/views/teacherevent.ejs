@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher Events</title>
+    <link rel="stylesheet" href="schedule.css">
+    <style>
+        body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
+    background: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input, textarea {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+}
+
+input:focus, textarea:focus {
+    border-color: #007bff; /* Green color for focus */
+    outline: none;
+}
+
+.submit-button {
+    padding: 10px;
+    background-color: #007bff; /* Green background */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.submit-button:hover {
+    background-color: #007bff; /* Darker green on hover */
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+th {
+    background-color: #007bff; /* Green header */
+    color: white;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.delete-button {
+    padding: 5px;
+    background-color: #dc3545; /* Red for delete */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.delete-button:hover {
+    background-color: #c82333; /* Darker red on hover */
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+    }
+
+    form {
+        flex-direction: column;
+    }
+
+    .form-group {
+        flex-direction: column;
+    }
+
+    input, textarea {
+        width: 100%;
+    }
+
+    .submit-button, .delete-button {
+        width: 100%;
+    }
+
+    table {
+        font-size: 14px;
+    }
+}
+
+@media (min-width: 769px) {
+    .container {
+        padding: 30px;
+    }
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Manage Events</h1>
+        <form id="eventForm">
+            <div class="form-group">
+                <label for="eventName">Event Name:</label>
+                <input type="text" id="eventName" required placeholder="Enter Event Name">
+            </div>
+            <div class="form-group">
+                <label for="eventDate">Date:</label>
+                <input type="date" id="eventDate" required>
+            </div>
+            <div class="form-group">
+                <label for="eventTime">Time:</label>
+                <input type="time" id="eventTime" required>
+            </div>
+            <div class="form-group">
+                <label for="eventDescription">Description:</label>
+                <textarea id="eventDescription" required placeholder="Enter Event Description"></textarea>
+            </div>
+            <button type="submit" class="submit-button">Add/Update Event</button>
+        </form>
+        <table>
+            <thead>
+                <tr>
+                    <th>Event Name</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Description</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="teacherEventsTableBody">
+                <!-- Events will be populated here -->
+            </tbody>
+        </table>
+    </div>
+    <script >
+        document.addEventListener('DOMContentLoaded', () => {
+    const eventForm = document.getElementById('eventForm');
+    const teacherEventsTableBody = document.getElementById('teacherEventsTableBody');
+    
+    let events = []; // This array will hold the events
+
+    // Function to display events
+    function displayEvents() {
+        teacherEventsTableBody.innerHTML = ''; // Clear existing events
+        events.forEach((event, index) => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${event.name}</td>
+                <td>${event.date}</td>
+                <td>${event.time}</td>
+                <td>${event.description}</td>
+                <td><button class="delete-button" onclick="deleteEvent(${index})">Delete</button></td>
+            `;
+            teacherEventsTableBody.appendChild(row);
+        });
+    }
+
+    // Add event listener to the form
+    eventForm.addEventListener('submit', function(e) {
+        e.preventDefault(); // Prevent form submission
+
+        const eventName = document.getElementById('eventName').value;
+        const eventDate = document.getElementById('eventDate').value;
+        const eventTime = document.getElementById('eventTime').value;
+        const eventDescription = document.getElementById('eventDescription').value;
+
+        // Add event to the array
+        events.push({ name: eventName, date: eventDate, time: eventTime, description: eventDescription });
+        
+        // Clear form inputs
+        eventForm.reset();
+        
+        displayEvents(); // Update the displayed events
+    });
+
+    // Function to delete an event
+    window.deleteEvent = function(index) {
+        events.splice(index, 1); // Remove the event at the specified index
+        displayEvents(); // Update the displayed events
+    };
+});
+
+    </script>
+</body>
+</html>
+007bff

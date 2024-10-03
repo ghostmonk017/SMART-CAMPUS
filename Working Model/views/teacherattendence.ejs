@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher Attendance</title>
+    <link rel="stylesheet" href="attendance.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    max-width: 900px;
+    margin: auto;
+    background: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+    color: #007bff;
+}
+
+.attendance-form,
+.attendance-list {
+    margin-bottom: 30px;
+}
+
+.attendance-form h2,
+.attendance-list h2 {
+    border-bottom: 2px solid #007bff;
+    color: #007bff;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input[type="text"],
+select {
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%;
+}
+
+.submit-button {
+    padding: 12px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+.submit-button:hover {
+    background-color: #007bff;
+}
+
+.feedback {
+    margin-top: 10px;
+    color: red;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    background-color: #007bff;
+    color: white;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Teacher Attendance</h1>
+
+        <!-- Attendance Form for Teacher -->
+        <div class="attendance-form">
+            <h2>Mark Attendance</h2>
+            <form id="attendanceForm">
+                <div class="form-group">
+                    <label for="teacherId">Teacher ID:</label>
+                    <input type="text" id="teacherId" required placeholder="Enter your Teacher ID">
+                </div>
+                <div class="form-group">
+                    <label for="teacherStudentId">Student ID:</label>
+                    <input type="text" id="teacherStudentId" required placeholder="Enter Student ID">
+                </div>
+                <div class="form-group">
+                    <label for="teacherStatus">Status:</label>
+                    <select id="teacherStatus" required>
+                        <option value="">Select Status</option>
+                        <option value="Present">Present</option>
+                        <option value="Absent">Absent</option>
+                    </select>
+                </div>
+                <button type="submit" class="submit-button">Submit Attendance</button>
+                <div id="teacherFeedback" class="feedback"></div>
+            </form>
+        </div>
+
+        <!-- Attendance List for Teacher -->
+        <div class="attendance-list">
+            <h2>Attendance List</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Student ID</th>
+                        <th>Name</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody id="attendanceTableBody">
+                    <!-- Attendance records will be populated here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script >
+        document.getElementById('attendanceForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    
+    const teacherId = document.getElementById('teacherId').value;
+    const studentId = document.getElementById('teacherStudentId').value;
+    const status = document.getElementById('teacherStatus').value;
+    const feedback = document.getElementById('teacherFeedback');
+
+    // Store attendance record
+    const attendanceRecord = {
+        studentId,
+        name: "Student Name", // Placeholder, you might want to fetch the actual name
+        date: new Date().toISOString().split('T')[0], // Store date as YYYY-MM-DD
+        status,
+        teacherId
+    };
+
+    // Save to local storage
+    saveAttendance(attendanceRecord);
+    feedback.textContent = "Attendance marked successfully!";
+    document.getElementById('attendanceForm').reset();
+    
+    // Populate attendance list
+    populateAttendanceList();
+});
+
+// Save attendance record to local storage
+function saveAttendance(record) {
+    let attendanceRecords = JSON.parse(localStorage.getItem('attendanceRecords')) || [];
+    attendanceRecords.push(record);
+    localStorage.setItem('attendanceRecords', JSON.stringify(attendanceRecords));
+}
+
+// Populate attendance list
+function populateAttendanceList() {
+    const tbody = document.getElementById('attendanceTableBody');
+    tbody.innerHTML = ''; // Clear existing data
+
+    const attendanceRecords = JSON.parse(localStorage.getItem('attendanceRecords')) || [];
+
+    attendanceRecords.forEach(record => {
+        const row = `<tr>
+            <td>${record.studentId}</td>
+            <td>${record.name}</td>
+            <td>${new Date(record.date).toLocaleDateString()}</td>
+            <td>${record.status}</td>
+        </tr>`;
+        tbody.innerHTML += row;
+    });
+}
+
+// Load attendance list on page load
+document.addEventListener('DOMContentLoaded', populateAttendanceList);
+
+    </script>
+</body>
+</html>
