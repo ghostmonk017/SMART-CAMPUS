@@ -19,7 +19,7 @@ Payment Integration: UPI integration for seamless student fee payments.
 Real-time Monitoring: Track schedules and attendance in real-time.
 
 ## Tech Stack
-Frontend: React.js – For creating an interactive user interface.
+Frontend: html, css and js – For creating an interactive user interface.
 
 Backend: Node.js with Express.js – For handling the server-side logic.
 
